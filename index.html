@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/mapdata/countries/in/in-all.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link href="style.css" rel="stylesheet" />
+<script src="script.js"></script>
+
+<body>
+
+    <div ng-app="myApp" ng-controller="customersCtrl">
+        <div class="row m-0">
+            <div class="col-sm-6 mt-2">Total Confirmed cases : <span><b>{{confirmedCases}}</b></span></div>
+            <div class="col-sm-6 text-right mt-2 dailystatus"><span class="mr-2" ng-click="mapClick()">Daily
+                    Status</span><span ng-click="dStatusClick()">Indian Map</span></div>
+            <div class="col-sm-12 text-right mt-2 dailystatus" ng-show="map" id="dailygraph">Daily Status</div>
+            <div ng-show="!map" class="col-sm-6 border-right border-top mt-3">
+                <div id="container"></div>
+            </div>
+            <div ng-show="!map" class="col-sm-6  border-top mt-3 cheight">
+                <div class=" mt-1">
+                    <div class="countdiv">Total count: <span class="count"><b></b></span></div>
+                    <h5 class="text-center statename">State name</h5>
+                    <span><input type="search" class="form-control search" ng-model="searchtxt"
+                            placeholder="Search District"></span>
+                    <input ng-click="getState()" type="hidden" class="get-details" />
+                </div>
+                <table class="table table-bordered mt-4">
+                    <thead>
+                        <tr>
+                            <th>District Name</th>
+                            <th>Confirmed Cases</th>
+                            <th>Recovered</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in statename | filter : searchtxt | orderBy : '-subType.confirmed'">
+                            <td>{{ x.field }}</td>
+                            <td>{{ x.subType.confirmed}}</td>
+                            <td>{{ x.subType.recovered}}</td>
+                        </tr>
+                        <tr ng-show="!statename.length">
+                            <td colspan="4" class="text-center">No Data Found , Please click any state on the map to get
+                                the Data</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

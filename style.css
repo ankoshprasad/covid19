@@ -1,0 +1,48 @@
+#container, #dailygraph {
+    width: 650px;
+    height: 570px;
+    margin: auto;
+}
+
+.get-details {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.9rem;
+}
+
+.search {
+    position: absolute;
+    width: 30%;
+    top: 0.5rem;
+    right: 1rem;
+    padding: 0.1rem 0.3rem 0.4rem 0.3rem;
+    height: 2rem;
+}
+
+.countdiv {
+    position: absolute;
+    top: 0.5rem;
+    left: 1rem;
+}
+
+table th {
+    position: -webkit-sticky; // this is for all Safari (Desktop & iOS), not for Chrome
+    position: sticky !important;
+    top: 0;
+    z-index: 5;
+    background: #fff;
+}
+
+.cheight {
+    height: 85vh;
+    overflow-y: auto;
+}
+
+.dailystatus span {
+    cursor: pointer;
+    font-weight
+}
+
+.dailystatus span:hover {
+    border-bottom: 1px solid
+}
