@@ -26,7 +26,7 @@
 }
 
 table th {
-    position: -webkit-sticky; // this is for all Safari (Desktop & iOS), not for Chrome
+    position: -webkit-sticky; 
     position: sticky !important;
     top: 0;
     z-index: 5;
@@ -40,9 +40,19 @@ table th {
 
 .dailystatus span {
     cursor: pointer;
-    font-weight
+ 
 }
 
 .dailystatus span:hover {
     border-bottom: 1px solid
+}
+
+
+@media only screen and (max-device-width: 650px) {
+    .col-12{
+        -ms-flex: 0 0 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 2rem;
+    }   
 }

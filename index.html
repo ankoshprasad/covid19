@@ -15,14 +15,15 @@
 
     <div ng-app="myApp" ng-controller="customersCtrl">
         <div class="row m-0">
-            <div class="col-sm-6 mt-2">Total Confirmed cases : <span><b>{{confirmedCases}}</b></span></div>
-            <div class="col-sm-6 text-right mt-2 dailystatus"><span class="mr-2" ng-click="mapClick()">Daily
-                    Status</span><span ng-click="dStatusClick()">Indian Map</span></div>
-            <div class="col-sm-12 text-right mt-2 dailystatus" ng-show="map" id="dailygraph">Daily Status</div>
-            <div ng-show="!map" class="col-sm-6 border-right border-top mt-3">
+            <div class="col-sm-6 col-6 mt-2">Total Confirmed cases : <span><b>{{confirmedCases}}</b></span></div>
+            <div class="col-sm-6 col-6 text-right mt-2 dailystatus"><span class="mr-2" ng-click="mapClick()">Daily
+                    Status</span><span ng-click="dStatusClick()">Indian Map</span>
+                </div>
+            <div class="col-sm-12 col-12 text-right mt-2 dailystatus" ng-show="map" id="dailygraph">Daily Status</div>
+            <div ng-show="!map" class="col-sm-6 col-12 border-right border-top mt-3">
                 <div id="container"></div>
             </div>
-            <div ng-show="!map" class="col-sm-6  border-top mt-3 cheight">
+            <div ng-show="!map" class="col-sm-6 col-12 border-top mt-3 cheight">
                 <div class=" mt-1">
                     <div class="countdiv">Total count: <span class="count"><b></b></span></div>
                     <h5 class="text-center statename">State name</h5>
