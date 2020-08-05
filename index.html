@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<head>
+<meta http-equiv="Refresh" content="300"> 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script src="https://code.highcharts.com/maps/highmaps.js"></script>
 <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
@@ -10,23 +12,26 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <link href="style.css" rel="stylesheet" />
 <script src="script.js"></script>
-
+</head>
 <body>
 
     <div ng-app="myApp" ng-controller="customersCtrl">
         <div class="row m-0">
-            <div class="col-sm-6 col-6 mt-2">Total Confirmed cases : <span><b>{{confirmedCases}}</b></span></div>
-            <div class="col-sm-6 col-6 text-right mt-2 dailystatus"><span class="mr-2" ng-click="mapClick()">Daily
-                    Status</span><span ng-click="dStatusClick()">Indian Map</span>
+            <div class="col-sm-7 col-6 heading p-2 mb-1"><span class="total">Total Confirmed cases : <span><b>{{confirmedCases}}</b></span></span>
+                <span class="ml-1 total">Total Recovered cases : <span><b>{{recoveredCases}}</b></span></span>
+                <span class="ml-1">Recovery Rate : <span><b>{{recoveryRate}}%</b></span></span>
+            </div>
+            <div class="col-sm-5 col-6 text-right dailystatus heading p-2 mb-1"><span  class="mr-2" ng-class="getCSSClass2()" ng-click="mapClick()">Daily
+                    Status</span><span ng-class="getCSSClass()" ng-click="dStatusClick()">Indian Map</span>
                 </div>
-            <div class="col-sm-12 col-12 text-right mt-2 dailystatus" ng-show="map" id="dailygraph">Daily Status</div>
-            <div ng-show="!map" class="col-sm-6 col-12 border-right border-top mt-3">
+            <div class="col-sm-12 col-12 text-right dailystatus" ng-show="map" id="dailygraph">Daily Status</div>
+            <div ng-show="!map" class="col-sm-6 col-12 border-right border-top">
                 <div id="container"></div>
             </div>
-            <div ng-show="!map" class="col-sm-6 col-12 border-top mt-3 cheight">
+            <div ng-show="!map" class="col-sm-6 col-12 border-top cheight">
                 <div class=" mt-1">
-                    <div class="countdiv">Total count: <span class="count"><b></b></span></div>
-                    <h5 class="text-center statename">State name</h5>
+                    <div class="countdiv">Total count: <span class="count"><b>{{stateKa}}</b></span></div>
+                    <h5 class="text-center statename">Karnataka</h5>
                     <span><input type="search" class="form-control search" ng-model="searchtxt"
                             placeholder="Search District"></span>
                     <input ng-click="getState()" type="hidden" class="get-details" />
@@ -37,6 +42,7 @@
                             <th>District Name</th>
                             <th>Confirmed Cases</th>
                             <th>Recovered</th>
+                            <th>Recovery Rate</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,10 +50,12 @@
                             <td>{{ x.field }}</td>
                             <td>{{ x.subType.confirmed}}</td>
                             <td>{{ x.subType.recovered}}</td>
+                            <td>{{ x.recoveryrate}}%</td>
                         </tr>
                         <tr ng-show="!statename.length">
                             <td colspan="4" class="text-center">No Data Found , Please click any state on the map to get
-                                the Data</td>
+                                the Data
+							</td>
                         </tr>
                     </tbody>
                 </table>

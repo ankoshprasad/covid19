@@ -1,10 +1,67 @@
 var app = angular.module('myApp', []);
 app.controller('customersCtrl', function ($scope, $http) {
+	statenameArray = [];
+    $scope.statedata = localStorage.getItem("statename");
+	$http.get("https://api.covid19india.org/state_district_wise.json")
+            .then(function (response) {
+                $scope.statesdetailsIndia = response.data;
+                for (var key in $scope.statesdetailsIndia) {
+                    if ($scope.statesdetailsIndia.hasOwnProperty(key)) {
+                        var x = key.replace(/ /g, "-");
+                        statenameArray.push({
+                            field: x,
+                            subType: $scope.statesdetailsIndia[key]
+                        });
+                    }
+                }
+                var stateclickArray = [];              
+                    $scope.statesjsonData = statenameArray[16].subType.districtData
+                    console.log($scope.statesjsonData);
+                    for (var key in $scope.statesjsonData) {
+                        if ($scope.statesjsonData.hasOwnProperty(key)) {
+                            //console.log('key', key);
+                            console.log('value', $scope.statesjsonData[key].confirmed);
+                            stateclickArray.push({
+                                field: key,
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
+                                /*
+                                    This bit was close. You could could also cache the Object.keys in 
+                                    another variable so its not called in every itteration of the loop if it doesnt change often
+                                */
+
+                            });
+                        }
+                    }
+                    $scope.statename = stateclickArray;
+                    console.log($scope.statename);
+             
+			});
+			
+			$http.get("https://api.covid19india.org/data.json")
+        .then(function (response) {
+            $scope.stateKa = response.data.statewise[4].confirmed;
+		});
+    $scope.getCSSClass = function() {
+        return "active";
+     }  
     $scope.mapClick = function () {
         $scope.map = true;
+        $scope.getCSSClass = function() {
+            return "!active";         
+         }  
+         $scope.getCSSClass2 = function() {
+            return "active";
+         }  
     };
     $scope.dStatusClick = function () {
         $scope.map = false;
+        $scope.getCSSClass2 = function() {
+            return "!active";     
+         }  
+         $scope.getCSSClass = function() {
+            return "active";
+         }  
     };
     $scope.getState = function () {
         statenameArray = [];
@@ -19,11 +76,6 @@ app.controller('customersCtrl', function ($scope, $http) {
                         statenameArray.push({
                             field: x,
                             subType: $scope.statesdetailsIndia[key]
-                            /*
-                                This bit was close. You could could also cache the Object.keys in 
-                                another variable so its not called in every itteration of the loop if it doesnt change often
-                            */
-
                         });
                     }
                 }
@@ -37,7 +89,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -58,11 +111,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
-                                /*
-                                    This bit was close. You could could also cache the Object.keys in 
-                                    another variable so its not called in every itteration of the loop if it doesnt change often
-                                */
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
 
                             });
                         }
@@ -79,11 +129,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
-                                /*
-                                    This bit was close. You could could also cache the Object.keys in 
-                                    another variable so its not called in every itteration of the loop if it doesnt change often
-                                */
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
 
                             });
                         }
@@ -101,7 +148,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -122,7 +170,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -144,7 +193,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -165,7 +215,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -186,7 +237,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -207,7 +259,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -228,7 +281,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -249,7 +303,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -270,7 +325,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -291,7 +347,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -312,7 +369,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -333,7 +391,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -354,7 +413,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -375,7 +435,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -396,7 +457,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -417,7 +479,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -438,7 +501,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -459,7 +523,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -480,7 +545,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -501,7 +567,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -523,7 +590,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -545,7 +613,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -567,7 +636,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -589,7 +659,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -611,7 +682,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -633,7 +705,8 @@ app.controller('customersCtrl', function ($scope, $http) {
                             console.log('value', $scope.statesjsonData[key]);
                             stateclickArray.push({
                                 field: key,
-                                subType: $scope.statesjsonData[key]
+                                subType: $scope.statesjsonData[key],
+                                recoveryrate: (($scope.statesjsonData[key].recovered/$scope.statesjsonData[key].confirmed)*100).toFixed(2)
                                 /*
                                     This bit was close. You could could also cache the Object.keys in 
                                     another variable so its not called in every itteration of the loop if it doesnt change often
@@ -656,9 +729,11 @@ app.controller('customersCtrl', function ($scope, $http) {
         .then(function (response) {
             $scope.jsonfarray = response.data.statewise;
             $scope.confirmedCases = response.data.statewise[0].confirmed.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $scope.recoveredCases = response.data.statewise[0].recovered.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $scope.recoveryRate = ((response.data.statewise[0].recovered / response.data.statewise[0].confirmed) * 100).toFixed(2);
             $scope.getcasetimeseries = response.data.cases_time_series;
             $scope.data2Array = [];
-            console.log(response.data);
+            console.log($scope.recoveryRate);
             for (var i = 0; i < $scope.getcasetimeseries.length; i++) {
                 $scope.data2res = response.data.cases_time_series[i].dailyconfirmed;
                 $scope.data2Array.push($scope.data2res);
@@ -873,6 +948,7 @@ app.controller('customersCtrl', function ($scope, $http) {
                 chart: {
                     map: 'countries/in/in-all',
                     margin: [30, 10, 0, 0]
+                
                 },
 
                 title: {

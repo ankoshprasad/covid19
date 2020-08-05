@@ -44,7 +44,8 @@ table th {
 }
 
 .dailystatus span:hover {
-    border-bottom: 1px solid
+    border-bottom: 3px solid;
+    border-color:#FFF;
 }
 
 
@@ -54,5 +55,25 @@ table th {
         flex: 0 0 100% !important;
         max-width: 100% !important;
         margin-bottom: 2rem;
-    }   
+    }  
+    
+    #container, #dailygraph {
+        width: 650px;
+        height: 570px;
+        margin: auto;
+    }
+}
+.active{
+    border-bottom: 3px solid;
+    border-color:#FFF;
+}
+
+.heading{
+    background-color: rgb(110 114 123);
+    color:#FFF;
+}
+
+.total{
+    border-right: 1px solid #fff;
+    padding-right: 10px;
 }
