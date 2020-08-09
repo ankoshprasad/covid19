@@ -969,7 +969,12 @@ app.controller('customersCtrl', function ($scope, $http) {
                 },
 
                 colorAxis: {
-                    min: 0
+                    min: 0,
+					stops: [
+                [0, '#FFE6E6'],
+                [0.67, '#FF0000'],
+                [1, '#330000']
+            ]
                 },
 
                 plotOptions: {
@@ -1012,6 +1017,7 @@ app.controller('customersCtrl', function ($scope, $http) {
                 },
 
                 series: [{
+					 color: '#FF0000',
                     data: jsonarray,
                     name: 'Confirmed Cases',
                     states: {
@@ -1037,7 +1043,9 @@ app.controller('customersCtrl', function ($scope, $http) {
             });
 
             /* Line Chart */
-
+            Highcharts.setOptions({
+    colors: ['red', 'green']
+});
             Highcharts.chart('dailygraph', {
 
                 chart: {

@@ -17,12 +17,11 @@
 
     <div ng-app="myApp" ng-controller="customersCtrl">
         <div class="row m-0">
-            <div class="col-sm-7 col-6 heading p-2 mb-1"><span class="total">Total Confirmed cases : <span><b>{{confirmedCases}}</b></span></span>
-                <span class="ml-1 total">Total Recovered cases : <span><b>{{recoveredCases}}</b></span></span>
+            <div class="col-sm-7 col-6 heading p-2 mb-1"><span class="total">Total Confirmed : <span><b>{{confirmedCases}}</b></span></span>
+                <span class="ml-1 total">Total Recovered : <span><b>{{recoveredCases}}</b></span></span>
                 <span class="ml-1">Recovery Rate : <span><b>{{recoveryRate}}%</b></span></span>
             </div>
-            <div class="col-sm-5 col-6 text-right dailystatus heading p-2 mb-1"><span  class="mr-2" ng-class="getCSSClass2()" ng-click="mapClick()">Daily
-                    Status</span><span ng-class="getCSSClass()" ng-click="dStatusClick()">Indian Map</span>
+            <div class="col-sm-5 col-6 text-right dailystatus heading p-2 mb-1"><span  class="mr-2" ng-class="getCSSClass2()" ng-click="mapClick()">Day Wise Status</span><span ng-class="getCSSClass()" ng-click="dStatusClick()">State Wise Status</span>
                 </div>
             <div class="col-sm-12 col-12 text-right dailystatus" ng-show="map" id="dailygraph">Daily Status</div>
             <div ng-show="!map" class="col-sm-6 col-12 border-right border-top">
